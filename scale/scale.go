@@ -6,7 +6,7 @@ import (
         "net/http"  
 	"os"  
         "fmt"  
-        "log"  
+	"time"
         
 )
 var apiHost string
@@ -38,7 +38,7 @@ func GetScaleDepFromNS(c *gin.Context) {
 	if err != nil {
 		log.Error("GetScaleDepFromNS error ", err)
 	}
-	log.Info("Get Scale Dep From NameSpace ", "result": req.StatusCode})
+	log.Info("Get Scale Dep From NameSpace ", map[string]interface{}{"result": req.StatusCode})
 	result, err := ioutil.ReadAll(req.Body)
 	if err != nil {
 		log.Error("GetScaleDepFromNS Read req.Body error", err)

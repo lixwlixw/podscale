@@ -21,7 +21,6 @@ func main() {
 func handle() (router *gin.Engine) {
 	gin.SetMode(gin.ReleaseMode)
 	router = gin.Default()
-	router.GET("/", scale.Hello)
         router.GET("/namespaces/:namespace/deployments/:name/scale", scale.ListReplicas)
 	return
 }
