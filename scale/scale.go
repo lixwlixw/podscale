@@ -1,12 +1,12 @@
 package scale
 
 import (
-	"github.com/gin-gonic/gin"
-        "io/ioutil"
-        "net/http"
-	"os"
-        "fmt"
-        "log"
+	"github.com/gin-gonic/gin"  
+        "io/ioutil"  
+        "net/http"  
+	"os"  
+        "fmt"  
+        "log"  
         
 )
 var apiHost string
