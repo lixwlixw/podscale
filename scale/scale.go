@@ -39,6 +39,7 @@ func init() {
 func GenRequest(method, url, token string, body []byte) (*http.Response, error) {
  var req *http.Request
  var err error
+ apiHost = os.Getenv("APIHOST")
  url = "https://" + apiHost + url
  if len(body) == 0 {
   req, err = http.NewRequest(method, url, nil)
