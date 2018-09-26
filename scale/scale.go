@@ -72,3 +72,20 @@ func ListReplicas(c *gin.Context) {
 	c.Data(req.StatusCode, JSON, result)
 }
 
+func ScaleReplicas(c *gin.Context) {
+	namespace := c.Param("namespace")
+	name := c.Param("name")
+	token = os.Getenv("APITOKEN")
+	req, err := GenRequest("PATCH", "/apis/apps/v1beta1/namespaces/"+namespace+"/deployments/"+name+"/scale", token , []byte{})
+	if err != nil {
+		log.Error("GetScaleDepFromNS error ", err)
+	}
+	log.Info("Get Scale Dep From NameSpace " , map[string]interface{}{"result": req.StatusCode})
+	result, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		log.Error("GetScaleDepFromNS Read req.Body error", err)
+	}
+	defer req.Body.Close()
+	c.Data(req.StatusCode, JSON, result)
+}
+
