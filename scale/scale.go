@@ -5,6 +5,7 @@ import (
 	"github.com/pivotal-golang/lager"
         "io/ioutil"
         "net/http"
+	"fmt"
 	"os"
         "bytes"
 	"time"
@@ -50,7 +51,7 @@ func GenRequest(method, url, token string, body []byte) (*http.Response, error) 
   return nil, err
  }
 
- req.Header.Set("Content-Type", "application/json")
+ req.Header.Set("Content-Type", "application/json-patch+json")
  req.Header.Set("Authorization", token)
  return httpClientG.Do(req)
 }
@@ -81,7 +82,8 @@ func ScaleReplicas(c *gin.Context) {
 		log.Error("Patch Deployment Scale Read Request.Body error", err)
 	}
 	defer c.Request.Body.Close()
-	req, err := GenRequest("PATCH", "/apis/apps/v1beta1/namespaces/"+namespace+"/deployments/"+name+"/scale", token, rBody)
+	fmt.Println(string(rBody))
+	req, err := GenRequest("PATCH", "/apis/apps/v1beta1/namespaces/"+namespace+"/deployments/"+name+"/scale", token, rBody) 
 	if err != nil {
 		log.Error("Set Deployment Scale error ", err)
 	}
