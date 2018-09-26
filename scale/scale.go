@@ -76,7 +76,12 @@ func ScaleReplicas(c *gin.Context) {
 	namespace := c.Param("namespace")
 	name := c.Param("name")
 	token = os.Getenv("APITOKEN")
-	req, err := GenRequest("PATCH", "/apis/apps/v1beta1/namespaces/"+namespace+"/deployments/"+name+"/scale", token , []byte{})
+	rBody, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		log.Error("PatchScaleDCFromNS Read Request.Body error", err)
+	}
+	defer c.Request.Body.Close()
+	req, err := GenRequest("PATCH", "/apis/apps/v1beta1/namespaces/"+namespace+"/deployments/"+name+"/scale", token , rBody)
 	if err != nil {
 		log.Error("Set Deployment Scale error ", err)
 	}
