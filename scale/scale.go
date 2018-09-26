@@ -29,7 +29,7 @@ var httpClientB = &http.Client{
 			}
 
 func init() {
-	log = lager.NewLogger("DeploymentConfig")
+	log = lager.NewLogger("Deployment")
 	log.RegisterSink(lager.NewWriterSink(os.Stdout, lager.DEBUG)) 
         }
 
@@ -61,12 +61,12 @@ func ListReplicas(c *gin.Context) {
 	token = os.Getenv("APITOKEN")
 	req, err := GenRequest("GET", "/apis/apps/v1beta1/namespaces/"+namespace+"/deployments/"+name+"/scale", token , []byte{})
 	if err != nil {
-		log.Error("GetScaleDepFromNS error ", err)
+		log.Error("Get Deployment Scale error ", err)
 	}
-	log.Info("Get Scale Dep From NameSpace " , map[string]interface{}{"result": req.StatusCode})
+	log.Info("Get Deployment Scale From NameSpace " , map[string]interface{}{"result": req.StatusCode})
 	result, err := ioutil.ReadAll(req.Body)
 	if err != nil {
-		log.Error("GetScaleDepFromNS Read req.Body error", err)
+		log.Error("Get Deployment Scale Read req.Body error", err)
 	}
 	defer req.Body.Close()
 	c.Data(req.StatusCode, JSON, result)
@@ -78,12 +78,12 @@ func ScaleReplicas(c *gin.Context) {
 	token = os.Getenv("APITOKEN")
 	req, err := GenRequest("PATCH", "/apis/apps/v1beta1/namespaces/"+namespace+"/deployments/"+name+"/scale", token , []byte{})
 	if err != nil {
-		log.Error("GetScaleDepFromNS error ", err)
+		log.Error("Set Deployment Scale error ", err)
 	}
-	log.Info("Get Scale Dep From NameSpace " , map[string]interface{}{"result": req.StatusCode})
+	log.Info("Set Deployment Scale From NameSpace " , map[string]interface{}{"result": req.StatusCode})
 	result, err := ioutil.ReadAll(req.Body)
 	if err != nil {
-		log.Error("GetScaleDepFromNS Read req.Body error", err)
+		log.Error("Set Deployment Scale Read req.Body error", err)
 	}
 	defer req.Body.Close()
 	c.Data(req.StatusCode, JSON, result)
