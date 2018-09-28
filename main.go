@@ -38,6 +38,6 @@ func handle() (router *gin.Engine) {
 		"test": "test",
 	}))
 	authorized.GET("/:namespace/deployments/:name/scale", scale.ListReplicas, getSecrets)
-	router.PATCH("/namespaces/:namespace/deployments/:name/scale", scale.ScaleReplicas)
+	authorized.POST("/:namespace/deployments/:name/scale", scale.ScaleReplicas, getSecrets)
 	return
 }
