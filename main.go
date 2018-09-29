@@ -3,7 +3,6 @@ package main
 import (
 	"net/http"
 	"time"
-
 	"github.com/gin-gonic/gin"
 	"github.com/lixwlixw/podscale/scale"
 )
@@ -27,6 +26,7 @@ func getSecrets(c *gin.Context) {
 	if _, ok := secrets[user]; ok {
 		c.JSON(200, "200")
 	} else {
+		fmt.Println("else")
 		c.JSON(200, "401")
 	}
 }
