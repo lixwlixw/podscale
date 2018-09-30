@@ -8,7 +8,7 @@ import (
 )
 
 var secrets = gin.H{
-	"test": gin.H{"email": "foo@gaojihealth.com", "phone": "123433"},
+	"admin": gin.H{"email": "foo@gaojihealth.com", "phone": "123433"},
 }
 
 func main() {
@@ -35,7 +35,7 @@ func handle() (router *gin.Engine) {
 	gin.SetMode(gin.ReleaseMode)
 	router = gin.Default()
 	authorized := router.Group("/namespaces", gin.BasicAuth(gin.Accounts{
-		"test": "test",
+		"admin": "gaojihealthadmin",
 	}))
 	authorized.GET("/:namespace/deployments/:name/scale", scale.ListReplicas, getSecrets)
 	authorized.POST("/:namespace/deployments/:name/scale", scale.ScaleReplicas, getSecrets)
