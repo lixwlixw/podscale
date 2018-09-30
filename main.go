@@ -3,12 +3,13 @@ package main
 import (
 	"net/http"
 	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/lixwlixw/podscale/scale"
 )
 
 var secrets = gin.H{
-	"test": gin.H{"email": "foo@gaojihealth.com", "phone": "123433"},
+	"admin": gin.H{"email": "foo@gaojihealth.com", "phone": "123433"},
 }
 
 func main() {
@@ -26,7 +27,6 @@ func getSecrets(c *gin.Context) {
 	if _, ok := secrets[user]; ok {
 		c.JSON(200, "200")
 	} else {
-		fmt.Println("else")
 		c.JSON(200, "401")
 	}
 }
@@ -35,7 +35,7 @@ func handle() (router *gin.Engine) {
 	gin.SetMode(gin.ReleaseMode)
 	router = gin.Default()
 	authorized := router.Group("/namespaces", gin.BasicAuth(gin.Accounts{
-		"test": "test",
+		"admin": "gaojihealthadmin",
 	}))
 	authorized.GET("/:namespace/deployments/:name/scale", scale.ListReplicas, getSecrets)
 	authorized.POST("/:namespace/deployments/:name/scale", scale.ScaleReplicas, getSecrets)
