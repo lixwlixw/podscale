@@ -1,11 +1,10 @@
 package main
 
 import (
-	"net/http"
-	"time"
-
 	"github.com/gin-gonic/gin"
 	"github.com/lixwlixw/podscale/scale"
+	"net/http"
+	"time"
 )
 
 var secrets = gin.H{
