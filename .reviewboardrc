@@ -1,0 +1,5 @@
+REVIEWBOARD_URL = "http://10.8.131.89:8000"
+REPOSITORY = "podscale"
+REPOSITORY_TYPE = "git"
+BRANCH = "master"
+LAND_DEST_BRANCH = "master"
